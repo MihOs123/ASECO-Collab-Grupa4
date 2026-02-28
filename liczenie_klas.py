@@ -1,11 +1,14 @@
-#Kod biorący i wypisujący klasy które są w danych
+# Kod biorący i wypisujący klasy które są w danych
 
 from pathlib import Path
 from collections import Counter
 from datasetHelpers import get_xml_files, create_image_dict
 
-BASE = Path(__file__).resolve().parents[2]   # jeśli uruchamiasz z dataset_yolo/labels/
+BASE = Path(__file__).resolve().parent      # folder projektu (ten sam co data/)
 DATA_DIR = BASE / "data"
+
+print("BASE:", BASE)
+print("DATA_DIR:", DATA_DIR, "exists:", DATA_DIR.exists())
 
 file_list = get_xml_files(
     root_dir=str(DATA_DIR),
@@ -22,8 +25,6 @@ for rec in images.values():
     for obj in rec["objects"]:
         counter[obj["name"]] += 1
 
-print("Klasa -> liczba wystąpień (alfabetycznie)\n")
+print("\nKlasa -> liczba wystąpień (alfabetycznie)\n")
 for cls in sorted(counter.keys()):
     print(f"{cls}: {counter[cls]}")
-
-#Odciski palców?
